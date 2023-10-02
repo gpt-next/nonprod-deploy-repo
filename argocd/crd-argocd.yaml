@@ -1,0 +1,116 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCD
+metadata:
+  finalizers:
+    - argoproj.io/finalizer
+  name: argocd
+  namespace: argocd
+spec:
+  sso:
+    provider: dex
+    dex:
+      config: |
+        connectors:
+          # GitHub example
+          - type: github
+            id: github
+            name: GitHub
+            config:
+              clientID: 5f27830976dcc3793b90
+              clientSecret: "$argocd-github:clientSecret"
+              orgs:
+              - name: gpt-next
+  server:
+    host: phoenix-funky-ringtail.ngrok-free.app/argocd
+    ingress:
+      enabled: false
+    insecure: true
+    extraCommandArgs:
+      - --rootpath
+      - /argocd
+  rbac:
+    policy: |
+      g, system:cluster-admins, role:admin
+      g, cluster-admins, role:admin
+    scopes: '[groups]'
+  repo:
+    #serviceaccount: vplugin
+    mountsatoken: true
+    volumes:
+      - configMap:
+          name: cmp-plugin
+        name: cmp-plugin
+      - name: custom-tools
+        emptyDir: {}
+    # Refer https://argocd-vault-plugin.readthedocs.io/en/stable/installation/#initcontainer-and-configuration-via-sidecar
+    # This init container will ensure argo vault plugin will be made available to
+    # the vault plugin sidecar container via volume mount.
+    initContainers:
+      - args:
+          - >-
+            wget -O argocd-vault-plugin
+            https://github.com/argoproj-labs/argocd-vault-plugin/releases/download/v${AVP_VERSION}/argocd-vault-plugin_${AVP_VERSION}_linux_amd64 &&
+            chmod +x argocd-vault-plugin &&
+            mv argocd-vault-plugin /custom-tools/ &&
+            cd /custom-tools &&
+            wget -O kustomize.tar.gz
+            https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz 
+            && tar -xvzf kustomize.tar.gz
+            && chmod +x kustomize
+        command:
+          - sh
+          - '-c'
+        image: alpine:3.8
+        env:
+          - name: AVP_VERSION
+            value: "1.16.1"
+          - name: KUSTOMIZE_VERSION
+            value: "4.5.7"
+        name: download-tools
+        resources: {}
+        volumeMounts:
+          - mountPath: /custom-tools
+            name: custom-tools
+    # This is our sidecar container spec for the vault plugin
+    # Specifically note the mounting of our vault config env vars
+    # via secretRef.
+    sidecarContainers:
+      - name: avp
+        command: [/var/run/argocd/argocd-cmp-server]
+        envFrom:
+          - secretRef:
+              name: vault-configuration
+        image: ubuntu:latest
+        #securityContext:
+        #  runAsNonRoot: true
+        volumeMounts:
+          - mountPath: /var/run/argocd
+            name: var-files
+          - mountPath: /home/argocd/cmp-server/plugins
+            name: plugins
+          - mountPath: /tmp
+            name: tmp
+
+          # Register plugins into sidecar
+          - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+            subPath: avp.yaml
+            name: cmp-plugin
+
+          # Important: Mount tools into $PATH
+          - name: custom-tools
+            subPath: argocd-vault-plugin
+            mountPath: /usr/local/bin/argocd-vault-plugin
+          - name: custom-tools
+            subPath: kustomize
+            mountPath: /usr/local/bin/kustomize
+
+
+          
+  #resourceExclusions: |
+  #  - apiGroups:
+  #    - kustomize.config.k8s.io
+  #    kinds:
+  #   - Kustomization
+  #   clusters:
+  #   - "*"  
