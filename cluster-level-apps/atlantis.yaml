@@ -15,7 +15,7 @@ metadata:
     name: atlantis
 spec:
   # The project the application belongs to.
-  project: cluster-level-apps
+  project: default
 
   # Source of the application manifests
   source:
