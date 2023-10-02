@@ -19,16 +19,13 @@ spec:
 
   # Source of the application manifests
   source:
-    repoURL: https://github.com/argoproj/argocd-example-apps.git  # Can point to either a Helm chart repo or a git repo.
+    repoURL: https://github.com/gpt-next/nonprod-deploy-repo.git  # Can point to either a Helm chart repo or a git repo.
     targetRevision: feature/add-atlantis # For Helm, this refers to the chart version.
     path: atlantis # This has no meaning for Helm charts pulled directly from a Helm repo instead of git.
 
   # Destination cluster and namespace to deploy the application
   destination:
-    # cluster API URL
-    server: https://kubernetes.default.svc
-    # or cluster name
-    # name: in-cluster
+    name: in-cluster
     # The namespace will only be set for namespace-scoped resources that have not set a value for .metadata.namespace
     namespace: atlantis
 
