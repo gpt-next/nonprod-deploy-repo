@@ -4,4 +4,4 @@ kind: Namespace
 metadata:
   name: atlantis
   labels:
-    argocd.argoproj.io/managed-by: argocd
+    argocd.argoproj.io/managed-by: argocd // namespace of managing Argo CD instance
