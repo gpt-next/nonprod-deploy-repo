@@ -28,14 +28,17 @@ kubectl get pods -n argocd
 #  AWS_SECRET_ACCESS_KEY: 
 #type: Opaque
 kubectl apply -f ./argocd/secret-vault-configuration.yaml
-#Should be in the form
 #apiVersion: v1
 #kind: Secret
 #metadata:
 #  name: argocd-github
 #  namespace: argocd
-#stringData:
-#  dex.github.clientSecret: 
+#  labels:
+#    "app.kubernetes.io/part-of": "argocd"
+#data:
+#  clientSecret: 
+#  username: 
+#  password: 
 #type: Opaque
 kubectl apply -f ./argocd/argocd-github-secret.yaml
 kubectl apply -f ./argocd/configmap-plugin.yaml

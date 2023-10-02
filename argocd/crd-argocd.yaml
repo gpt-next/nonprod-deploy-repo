@@ -7,6 +7,15 @@ metadata:
   name: argocd
   namespace: argocd
 spec:
+  repositoryCredentials: |
+    - usernameSecret:
+        key: username
+        name: argocd-github
+      passwordSecret:
+        key: password
+        name: argocd-github
+      type: git
+      url: https://github.com/gpt-next/nonprod-deploy-repo.git
   sso:
     provider: dex
     dex:
@@ -104,7 +113,7 @@ spec:
           - name: custom-tools
             subPath: kustomize
             mountPath: /usr/local/bin/kustomize
-
+   
 
           
   #resourceExclusions: |

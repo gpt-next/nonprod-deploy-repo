@@ -1,0 +1,110 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: atlantis
+spec:
+  serviceName: atlantis
+  replicas: 1
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      partition: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: atlantis
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: atlantis
+    spec:
+      #serviceAccountName: atlantis
+      #securityContext:
+      #  fsGroup: 1000
+      containers:
+      - name: atlantis
+        image: ghcr.io/runatlantis/atlantis:v0.25.0 #quay.io/cfel4321/atlantis
+        env:
+        - name: HOME
+          value: /home/atlantis 
+        - name: ATLANTIS_REPO_CONFIG
+          value: /home/config/repos.yaml
+        - name: ATLANTIS_GH_APP_ID
+          valueFrom:
+            secretKeyRef:
+              name: atlantis-vcs
+              key: atlantis-gh-app-id
+        - name: ATLANTIS_GH_APP_KEY_FILE
+          value: /home/atlantis-vcs/gh-app-key-file.pem
+        - name: ATLANTIS_GH_WEBHOOK_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: atlantis-vcs
+              key: atlantis-webhook-secret
+        - name: ATLANTIS_WRITE_GIT_CREDS
+          value: "true"
+        - name: ATLANTIS_PORT
+          value: "4141" 
+        - name: INFRACOST_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: atlantis-vcs
+              key: atlantis-infracost-api-key
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: atlantis-vcs
+              key: atlantis-infracost-gh-token
+        envFrom:
+        - configMapRef:
+            name: extra-env-vars
+        volumeMounts:
+        - name: atlantis-vcs
+          mountPath: /home/atlantis-vcs
+        - name: atlantis-data
+          mountPath: /home/atlantis
+        - name: config
+          mountPath: /home/config
+        ports:
+        - name: atlantis
+          containerPort: 4141
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 100m
+          limits:
+            memory: 256Mi
+            cpu: 100m
+        livenessProbe:
+          # We only need to check every 60s since Atlantis is not a
+          # high-throughput service.
+          periodSeconds: 60
+          httpGet:
+            path: /healthz
+            port: 4141
+            # If using https, change this to HTTPS
+            scheme: HTTP
+        readinessProbe:
+          periodSeconds: 60
+          httpGet:
+            path: /healthz
+            port: 4141
+            # If using https, change this to HTTPS
+            scheme: HTTP
+      volumes:
+      - name: atlantis-vcs
+        secret:
+          secretName: atlantis-vcs
+      - name: config
+        configMap:
+          name: atlantis-config
+  volumeClaimTemplates:
+  - metadata:
+      name: atlantis-data
+    spec:
+      accessModes: ["ReadWriteOnce"] # Volume should not be shared by multiple nodes.
+      resources:
+        requests:
+          # The biggest thing Atlantis stores is the Git repo when it checks it out.
+          # It deletes the repo after the pull request is merged.
+          storage: 5Gi
