@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: atlantis
 
 resources:
-#- namespace.yaml
 - statefulset.yaml
 - service.yaml
+- vcs-secret.yaml
