@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- catalog_source.yaml
+- operator_group.yaml
+- subscription.yaml
+- argocd-github-secret.yaml
+- avp-configuration-secret.yaml
+- configmap-plugin.yaml
+- crd-argocd.yaml
+- ingress.yaml
