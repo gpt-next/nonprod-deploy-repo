@@ -5,8 +5,10 @@ resources:
 - catalog_source.yaml
 - operator_group.yaml
 - subscription.yaml
+- argocd-project.yaml
 - argocd-github-secret.yaml
 - avp-configuration-secret.yaml
 - configmap-plugin.yaml
 - crd-argocd.yaml
 - ingress.yaml
+- ../cluster-level-apps
