@@ -55,9 +55,9 @@ spec:
        #     secretKeyRef:
        #       name: atlantis-vcs
        #       key: atlantis-infracost-gh-token
-       envFrom:
-        - configMapRef:
-            name: extra-env-vars
+        envFrom:
+          - configMapRef:
+              name: extra-env-vars
         volumeMounts:
         - name: atlantis-vcs
           mountPath: /home/atlantis-vcs
