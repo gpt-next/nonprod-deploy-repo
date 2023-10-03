@@ -1,6 +1,6 @@
 repos:
-  - id: /.*/
-    workflow: terraform-infracost
+- id: /.*/
+  workflow: terraform-infracost
 workflows:
   terraform-infracost:
     plan:
