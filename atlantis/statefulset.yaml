@@ -25,16 +25,10 @@ spec:
       - name: atlantis
         image: ghcr.io/runatlantis/atlantis:v0.25.0 #quay.io/cfel4321/atlantis
         env:
-        - name: ATLANTIS_REPO_ALLOWLIST
-          value: "github.com/gpt-next/nonprod-deploy-repo"
-        - name: ATLANTIS_GH_ORG
-          value: "gpt-next"
-        - name: ATLANTIS_ATLANTIS_URL
-          value: "https://sloth-beloved-wren.ngrok-free.app"
         - name: HOME
           value: /home/atlantis 
-       # - name: ATLANTIS_REPO_CONFIG
-       #   value: /home/config/repos.yaml
+        - name: ATLANTIS_REPO_CONFIG
+          value: /home/config/repos.yaml
         - name: ATLANTIS_GH_APP_ID
           valueFrom:
             secretKeyRef:
@@ -61,16 +55,16 @@ spec:
        #     secretKeyRef:
        #       name: atlantis-vcs
        #       key: atlantis-infracost-gh-token
-       # envFrom:
-       # - configMapRef:
-       #     name: extra-env-vars
+       envFrom:
+        - configMapRef:
+            name: extra-env-vars
         volumeMounts:
         - name: atlantis-vcs
           mountPath: /home/atlantis-vcs
         - name: atlantis-data
           mountPath: /home/atlantis
-        #- name: config
-        #  mountPath: /home/config
+        - name: config
+          mountPath: /home/config
         ports:
         - name: atlantis
           containerPort: 4141
@@ -101,9 +95,9 @@ spec:
       - name: atlantis-vcs
         secret:
           secretName: atlantis-vcs
-     # - name: config
-     #   configMap:
-     #     name: atlantis-config
+      - name: config
+        configMap:
+          name: atlantis-config
   volumeClaimTemplates:
   - metadata:
       name: atlantis-data

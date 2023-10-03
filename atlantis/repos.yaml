@@ -1,0 +1,46 @@
+repos:
+  - id: /.*/
+    workflow: terraform-infracost
+workflows:
+  terraform-infracost:
+    plan:
+      steps:
+        - env:
+            name: SRC_DIR
+            command: 'echo "${DIR}"'
+        - run: rm -rf ${TOOLS_DIR} && install-tools.sh
+        - env: 
+            name: ASDF_DIR
+            command: 'echo "${TOOLS_DIR}/asdf"'
+        - env:
+            name: INFRACOST_OUTPUT
+            command: 'echo "/home/atlantis/tmp/$BASE_REPO_OWNER-$BASE_REPO_NAME-$PULL_NUM/$WORKSPACE-${REPO_REL_DIR//\//-}-infracost.json"'
+        - init
+        - plan
+        - show # this writes the plan JSON to $SHOWFILE
+        - run: |
+            . ${TOOLS_DIR}/asdf/asdf.sh
+            tflint
+        # Run Infracost breakdown and save to a tempfile, namespaced by this project, PR, workspace and dir
+        - run: |
+            . ${TOOLS_DIR}/asdf/asdf.sh
+            mkdir -p /home/atlantis/tmp/$BASE_REPO_OWNER-$BASE_REPO_NAME-$PULL_NUM
+            infracost breakdown --path=$SHOWFILE \
+                                --format=json \
+                                --log-level=info \
+                                --out-file=$INFRACOST_OUTPUT \
+                                --project-name=$REPO_REL_DIR
+            infracost output --path=$INFRACOST_OUTPUT --format=table --out-file=/home/atlantis/tmp/$BASE_REPO_OWNER-$BASE_REPO_NAME-$PULL_NUM/infracost-comment.md
+            cat /home/atlantis/tmp/$BASE_REPO_OWNER-$BASE_REPO_NAME-$PULL_NUM/infracost-comment.md
+    apply:
+      steps:
+        - env:
+            name: SRC_DIR
+            command: 'echo "${DIR}"'
+        - run: rm -rf ${TOOLS_DIR} && install-tools.sh
+        - env: 
+            name: ASDF_DIR
+            command: 'echo "${TOOLS_DIR}/asdf"'
+        - run: |
+            . ${TOOLS_DIR}/asdf/asdf.sh
+            terraform apply -auto-approve
