@@ -7,3 +7,4 @@ resources:
 - statefulset.yaml
 - service.yaml
 - vcs-secret.yaml
+- atlantis-svc-bridge.yaml

@@ -13,13 +13,13 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: "atlantis.atlantis.svc.cluster.local"
+                name: atlantis-svc-bridge
                 port:
                   number: 80
           - path: /argocd
             pathType: Prefix
             backend:
               service:
-                name: "argocd-server.argocd.svc.cluster.local"
+                name: argo-svc-bridge
                 port:
                   number: 80
