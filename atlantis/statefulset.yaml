@@ -27,15 +27,15 @@ spec:
         env:
         - name: HOME
           value: /home/atlantis 
-        - name: ATLANTIS_REPO_CONFIG
-          value: /home/config/repos.yaml
-        - name: ATLANTIS_GH_APP_ID
-          valueFrom:
-            secretKeyRef:
-              name: atlantis-vcs
-              key: atlantis-gh-app-id
-        - name: ATLANTIS_GH_APP_KEY_FILE
-          value: /home/atlantis-vcs/gh-app-key-file.pem
+       # - name: ATLANTIS_REPO_CONFIG
+       #   value: /home/config/repos.yaml
+       # - name: ATLANTIS_GH_APP_ID
+       #   valueFrom:
+       #     secretKeyRef:
+       #       name: atlantis-vcs
+       #       key: atlantis-gh-app-id
+       # - name: ATLANTIS_GH_APP_KEY_FILE
+       #   value: /home/atlantis-vcs/gh-app-key-file.pem
         - name: ATLANTIS_GH_WEBHOOK_SECRET
           valueFrom:
             secretKeyRef:
@@ -45,19 +45,19 @@ spec:
           value: "true"
         - name: ATLANTIS_PORT
           value: "4141" 
-        - name: INFRACOST_API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: atlantis-vcs
-              key: atlantis-infracost-api-key
-        - name: GITHUB_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: atlantis-vcs
-              key: atlantis-infracost-gh-token
-        envFrom:
-        - configMapRef:
-            name: extra-env-vars
+       # - name: INFRACOST_API_KEY
+       #   valueFrom:
+       #     secretKeyRef:
+       #       name: atlantis-vcs
+       #       key: atlantis-infracost-api-key
+       # - name: GITHUB_TOKEN
+       #   valueFrom:
+       #     secretKeyRef:
+       #       name: atlantis-vcs
+       #       key: atlantis-infracost-gh-token
+       # envFrom:
+       # - configMapRef:
+       #     name: extra-env-vars
         volumeMounts:
         - name: atlantis-vcs
           mountPath: /home/atlantis-vcs
@@ -95,9 +95,9 @@ spec:
       - name: atlantis-vcs
         secret:
           secretName: atlantis-vcs
-      - name: config
-        configMap:
-          name: atlantis-config
+     # - name: config
+     #   configMap:
+     #     name: atlantis-config
   volumeClaimTemplates:
   - metadata:
       name: atlantis-data
