@@ -7,6 +7,15 @@ metadata:
   name: argocd
   namespace: argocd
 spec:
+  repositoryCredentials: |
+    - usernameSecret:
+        key: username
+        name: argocd-github
+      passwordSecret:
+        key: password
+        name: argocd-github
+      type: git
+      url: https://github.com/gpt-next/nonprod-deploy-repo.git
   sso:
     provider: dex
     dex:
@@ -22,7 +31,7 @@ spec:
               orgs:
               - name: gpt-next
   server:
-    host: phoenix-funky-ringtail.ngrok-free.app/argocd
+    host: sloth-beloved-wren.ngrok-free.app/argocd
     ingress:
       enabled: false
     insecure: true
@@ -81,9 +90,10 @@ spec:
         envFrom:
           - secretRef:
               name: vault-configuration
-        image: ubuntu:latest
-        #securityContext:
-        #  runAsNonRoot: true
+        image: alpine:3.8
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 999
         volumeMounts:
           - mountPath: /var/run/argocd
             name: var-files
@@ -104,7 +114,7 @@ spec:
           - name: custom-tools
             subPath: kustomize
             mountPath: /usr/local/bin/kustomize
-
+   
 
           
   #resourceExclusions: |
