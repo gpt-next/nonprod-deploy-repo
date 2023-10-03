@@ -25,6 +25,8 @@ spec:
       - name: atlantis
         image: ghcr.io/runatlantis/atlantis:v0.25.0 #quay.io/cfel4321/atlantis
         env:
+        - name: ATLANTIS_ATLANTIS_URL
+          value: "https://phoenix-funky-ringtail.ngrok-free.app/atlantis"
         - name: HOME
           value: /home/atlantis 
        # - name: ATLANTIS_REPO_CONFIG
