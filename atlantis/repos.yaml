@@ -1,5 +1,5 @@
 repos:
-- id: "/.*/"
+- id: /.*/
   workflow: terraform-infracost
 workflows:
   terraform-infracost:

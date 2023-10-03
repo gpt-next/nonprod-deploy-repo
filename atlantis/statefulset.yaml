@@ -27,8 +27,8 @@ spec:
         env:
         - name: HOME
           value: /home/atlantis 
-        - name: ATLANTIS_REPO_CONFIG_JSON
-          value: /home/config/repos.yaml
+        - name: ATLANTIS_REPO_CONFIG
+          value: /home/config/reps.yaml
         - name: ATLANTIS_GH_APP_ID
           valueFrom:
             secretKeyRef:
