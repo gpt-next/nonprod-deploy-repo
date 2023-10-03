@@ -6,5 +6,5 @@ namespace: atlantis
 resources:
 - statefulset.yaml
 - service.yaml
-- vcs-secret.yaml
+#- vcs-secret.yaml
 #- ingress.yaml
