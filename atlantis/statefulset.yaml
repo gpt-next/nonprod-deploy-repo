@@ -34,7 +34,7 @@ spec:
         - name: ATLANTIS_GH_ORG
           value: "gpt-next"
         - name: ATLANTIS_ATLANTIS_URL
-          value: "https://sloth-beloved-wren.ngrok-free.app/atlantis"
+          value: "https://sloth-beloved-wren.ngrok-free.app"
         - name: HOME
           value: /home/atlantis 
        # - name: ATLANTIS_REPO_CONFIG
