@@ -17,11 +17,3 @@ spec:
                 name: argocd-server
                 port:
                   number: 80
-          - path: /atlantis
-            pathType: Prefix
-            backend:
-              service:
-                name: atlantis
-                port:
-                  number: 80
-         
