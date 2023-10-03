@@ -13,6 +13,13 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: atlantis
+                name: "atlantis.atlantis.svc.cluster.local"
+                port:
+                  number: 80
+          - path: /argocd
+            pathType: Prefix
+            backend:
+              service:
+                name: "argocd-server.argocd.svc.cluster.local"
                 port:
                   number: 80
