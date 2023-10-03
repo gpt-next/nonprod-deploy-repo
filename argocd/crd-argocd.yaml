@@ -31,7 +31,7 @@ spec:
               orgs:
               - name: gpt-next
   server:
-    host: phoenix-funky-ringtail.ngrok-free.app/argocd
+    host: sloth-beloved-wren.ngrok-free.app/argocd
     ingress:
       enabled: false
     insecure: true
