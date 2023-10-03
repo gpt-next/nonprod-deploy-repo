@@ -30,7 +30,7 @@ spec:
         - name: ATLANTIS_GH_TOKEN
           value: fake
         - name: ATLANTIS_REPO_ALLOWLIST
-          value: "giuthub.com/gpt-next/nonprod-deploy-repo"\
+          value: "github.com/gpt-next/nonprod-deploy-repo"
         - name: ATLANTIS_GH_ORG
           value: "gpt-next"
         - name: ATLANTIS_ATLANTIS_URL
