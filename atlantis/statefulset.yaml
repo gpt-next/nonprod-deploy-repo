@@ -65,8 +65,8 @@ spec:
           mountPath: /home/atlantis-vcs
         - name: atlantis-data
           mountPath: /home/atlantis
-        - name: config
-          mountPath: /home/config
+        #- name: config
+        #  mountPath: /home/config
         ports:
         - name: atlantis
           containerPort: 4141

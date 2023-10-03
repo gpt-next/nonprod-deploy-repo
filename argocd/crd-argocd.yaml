@@ -90,9 +90,10 @@ spec:
         envFrom:
           - secretRef:
               name: vault-configuration
-        image: ubuntu:latest
-        #securityContext:
-        #  runAsNonRoot: true
+        image: alpine:3.8
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 999
         volumeMounts:
           - mountPath: /var/run/argocd
             name: var-files
