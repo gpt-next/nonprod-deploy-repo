@@ -36,7 +36,7 @@ workflows:
       steps:
         - env:
             name: SRC_DIR
-            command: 'echo "${DIR}"'
+            command: 'echo "${DIR}/infra-live"'
         - run: rm -rf ${TOOLS_DIR} && install-tools.sh
         - env: 
             name: ASDF_DIR
