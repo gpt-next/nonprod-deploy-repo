@@ -9,17 +9,17 @@ spec:
     - host: phoenix-funky-ringtail.ngrok-free.app
       http:
         paths:
-          - path: /atlantis
-            pathType: Prefix
-            backend:
-              service:
-                name: atlantis-svc-bridge
-                port:
-                  number: 80
           - path: /argocd
             pathType: Prefix
             backend:
               service:
-                name: argo-svc-bridge
+                name: argocd-server
+                port:
+                  number: 80
+          - path: /atlantis
+            pathType: Prefix
+            backend:
+              service:
+                name: atlantis
                 port:
                   number: 80

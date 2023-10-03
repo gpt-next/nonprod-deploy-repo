@@ -10,5 +10,5 @@ resources:
 - avp-configuration-secret.yaml
 - configmap-plugin.yaml
 - crd-argocd.yaml
-- argocd-svc-bridge.yaml
+- ingress.yaml
 - ../cluster-level-apps
