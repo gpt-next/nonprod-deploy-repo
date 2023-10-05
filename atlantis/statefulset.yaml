@@ -62,8 +62,8 @@ spec:
             secretKeyRef:
               name: atlantis-vcs
               key: AWS_ACCESS_KEY_ID
-         - name: AWS_ACCESS_KEY_ID
-           valueFrom:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
             secretKeyRef:
               name: atlantis-vcs
               key: AWS_ACCESS_KEY_ID
