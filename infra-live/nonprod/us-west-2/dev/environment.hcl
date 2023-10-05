@@ -1,0 +1,6 @@
+locals {
+    environment = "dev"
+}
+
+
+

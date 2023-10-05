@@ -21,9 +21,11 @@ spec:
       #serviceAccountName: atlantis
       #securityContext:
       #  fsGroup: 1000
+      imagePullSecrets:
+        - name: docker-pull-secret
       containers:
       - name: atlantis
-        image: ghcr.io/runatlantis/atlantis:v0.25.0 #quay.io/cfel4321/atlantis
+        image: ghcr.io/gpt-next/custom-images-atlantis:main #ghcr.io/runatlantis/atlantis:v0.25.0 #quay.io/cfel4321/atlantis
         env:
         - name: HOME
           value: /home/atlantis 
@@ -45,16 +47,26 @@ spec:
           value: "true"
         - name: ATLANTIS_PORT
           value: "4141" 
-       # - name: INFRACOST_API_KEY
-       #   valueFrom:
-       #     secretKeyRef:
-       #       name: atlantis-vcs
-       #       key: atlantis-infracost-api-key
-       # - name: GITHUB_TOKEN
-       #   valueFrom:
-       #     secretKeyRef:
-       #       name: atlantis-vcs
-       #       key: atlantis-infracost-gh-token
+        - name: INFRACOST_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: atlantis-vcs
+              key: atlantis-infracost-api-key
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: atlantis-vcs
+              key: atlantis-infracost-gh-token
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: atlantis-vcs
+              key: AWS_ACCESS_KEY_ID
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: atlantis-vcs
+              key: AWS_SECRET_ACCESS_KEY
         envFrom:
           - configMapRef:
               name: extra-env-vars
