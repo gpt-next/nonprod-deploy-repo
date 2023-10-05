@@ -8,5 +8,5 @@ include {
 
 
 inputs = {
-  bucket_name = "my-bucket!"
+  bucket_name = "my-bucket"
 }
