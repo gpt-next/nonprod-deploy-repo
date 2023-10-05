@@ -7,6 +7,7 @@ resources:
 - statefulset.yaml
 - service.yaml
 - vcs-secret.yaml
+- docker-pull-secret.yaml
 
 configMapGenerator:
 - name: atlantis-config

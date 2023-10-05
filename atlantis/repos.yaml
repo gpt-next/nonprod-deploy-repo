@@ -1,8 +1,8 @@
 repos:
-- id: /.*/
-  workflow: terraform-infracost
+- id: "/.*/"
+  workflow: terragrunt-infracost
 workflows:
-  terraform-infracost:
+  terragrunt-infracost:
     plan:
       steps:
         - env:
