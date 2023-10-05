@@ -6,6 +6,10 @@ workflows:
     plan:
       steps:
         - env:
+            # Reduce Terraform suggestion output
+            name: TF_IN_AUTOMATION
+            value: 'true'
+        - env:
             name: SRC_DIR
             command: 'echo "${DIR}"'
         - run: rm -rf ${TOOLS_DIR} && install-tools.sh
@@ -15,9 +19,12 @@ workflows:
         - env:
             name: INFRACOST_OUTPUT
             command: 'echo "/home/atlantis/tmp/$BASE_REPO_OWNER-$BASE_REPO_NAME-$PULL_NUM/$WORKSPACE-${REPO_REL_DIR//\//-}-infracost.json"'
-        - init
-        - plan
-        - show # this writes the plan JSON to $SHOWFILE
+        - run:
+          # Allow for targetted plans/applies as not supported for Terraform wrappers by default
+          command: terragrunt plan -input=false $(printf '%s' $COMMENT_ARGS | sed 's/,/ /g' | tr -d '\\') -no-color -out $PLANFILE
+          output: hide
+        - run: |
+            terragrunt show $PLANFILE
         - run: |
             . ${TOOLS_DIR}/asdf/asdf.sh
             tflint
