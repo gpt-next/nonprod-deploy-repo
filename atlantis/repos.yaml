@@ -20,16 +20,20 @@ workflows:
             name: INFRACOST_OUTPUT
             command: 'echo "/home/atlantis/tmp/$BASE_REPO_OWNER-$BASE_REPO_NAME-$PULL_NUM/$WORKSPACE-${REPO_REL_DIR//\//-}-infracost.json"'
         - run: |
+            #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
             terragrunt plan -input=false $(printf '%s' $COMMENT_ARGS | sed 's/,/ /g' | tr -d '\\') -no-color -out $PLANFILE
         - run: |
+            #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
             terragrunt show $PLANFILE
         - run: |
+            #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
             tflint
         # Run Infracost breakdown and save to a tempfile, namespaced by this project, PR, workspace and dir
         - run: |
+            #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
             mkdir -p /home/atlantis/tmp/$BASE_REPO_OWNER-$BASE_REPO_NAME-$PULL_NUM
             infracost breakdown --path=$SHOWFILE \
@@ -49,5 +53,6 @@ workflows:
             name: ASDF_DIR
             command: 'echo "${TOOLS_DIR}/asdf"'
         - run: |
+            #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
             terraform apply -auto-approve
