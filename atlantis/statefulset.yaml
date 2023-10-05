@@ -47,16 +47,16 @@ spec:
           value: "true"
         - name: ATLANTIS_PORT
           value: "4141" 
-       # - name: INFRACOST_API_KEY
-       #   valueFrom:
-       #     secretKeyRef:
-       #       name: atlantis-vcs
-       #       key: atlantis-infracost-api-key
-       # - name: GITHUB_TOKEN
-       #   valueFrom:
-       #     secretKeyRef:
-       #       name: atlantis-vcs
-       #       key: atlantis-infracost-gh-token
+        - name: INFRACOST_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: atlantis-vcs
+              key: atlantis-infracost-api-key
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: atlantis-vcs
+              key: atlantis-infracost-gh-token
         envFrom:
           - configMapRef:
               name: extra-env-vars
