@@ -61,12 +61,12 @@ spec:
           valueFrom:
             secretKeyRef:
               name: atlantis-vcs
-              key: AWS_ACCESS_KEY_ID
+              key: ATLANTIS_AWS_ACCESS_KEY
         - name: AWS_SECRET_ACCESS_KEY
           valueFrom:
             secretKeyRef:
               name: atlantis-vcs
-              key: AWS_SECRET_ACCESS_KEY
+              key: ATLANTIS_AWS_SECRET_ACCESS_KEY
         envFrom:
           - configMapRef:
               name: extra-env-vars
