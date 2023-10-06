@@ -6,7 +6,6 @@ parallel_apply: false
 abort_on_execution_order_fail: true
 projects:
 - name: nonprod
-  branch: /main/
   dir: ./infra-live/nonprod
   workspace: nonprod
   autoplan:
