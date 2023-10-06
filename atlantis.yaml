@@ -9,7 +9,6 @@ projects:
   branch: /main/
   dir: ./infra-live/nonprod
   workspace: nonprod
-  repo_locking: true
   autoplan:
     when_modified: ["*.tf", "../modules/**/*.tf", ".terraform.lock.hcl"]
     enabled: true
