@@ -23,9 +23,11 @@ spec:
       #  fsGroup: 1000
       imagePullSecrets:
         - name: docker-pull-secret
+      
       containers:
       - name: atlantis
         image: ghcr.io/gpt-next/custom-images-atlantis:main #ghcr.io/runatlantis/atlantis:v0.25.0 #quay.io/cfel4321/atlantis
+        imagePullPolicy: Always
         env:
         - name: HOME
           value: /home/atlantis 
