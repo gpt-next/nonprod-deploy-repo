@@ -9,6 +9,6 @@ projects:
   dir: ./infra-live/nonprod
   workspace: nonprod
   autoplan:
-    when_modified: ["*.tf", "../modules/**/*.tf", ".terraform.lock.hcl"]
+    when_modified: ["*.tf", "../modules/**/*.tf", "*.hcl"]
     enabled: true
   execution_order_group: 1
