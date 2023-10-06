@@ -1,3 +1,5 @@
 
 
 atlantis/gh-app-key-file.pem
+.terragrunt-cache
+.terraform.lock.hcl
