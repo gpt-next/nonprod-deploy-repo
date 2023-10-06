@@ -15,10 +15,11 @@ locals {
 generate "provider" {
   path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
-  contents  = <<EOF
-provider "kubernetes" {
-  config_path    = "~/.kube/config"
-  config_context = "rancher-desktop"
+  contents  = <<<<EOF
+provider "aws" {
+  version = ">= 4.9.0, < 5.0.0"
+  region = "${local.aws_region}"
+  allowed_account_ids = ["${local.aws_account_id}"]
 }
 EOF
 }
