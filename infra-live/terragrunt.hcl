@@ -15,7 +15,7 @@ locals {
 generate "provider" {
   path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
-  contents  = <<<<EOF
+  contents  = <<EOF
 provider "aws" {
   version = ">= 4.9.0, < 5.0.0"
   region = "${local.aws_region}"
