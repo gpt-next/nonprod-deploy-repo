@@ -84,9 +84,6 @@ spec:
           requests:
             memory: 256Mi
             cpu: 100m
-          limits:
-            memory: 256Mi
-            cpu: 100m
         livenessProbe:
           # We only need to check every 60s since Atlantis is not a
           # high-throughput service.
