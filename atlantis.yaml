@@ -1,0 +1,12 @@
+automerge: true
+parallel_apply: true
+parallel_plan: true
+projects:
+- autoplan:
+    enabled: true
+    when_modified:
+    - '*.hcl'
+    - '*.tf*'
+    - ../../../../terragrunt.hcl
+  dir: infra-live/nonprod/us-west-2/dev/s3-test-bucket
+version: 3
