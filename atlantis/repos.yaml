@@ -1,7 +1,7 @@
 repos:
 - id: "github.com/gpt-nx/nonprod-deploy-repo"
   pre_workflow_hooks:
-    - run: terragrunt-atlantis-config generate --automerge --ignore-dependency-blocks --ignore-parent-terragrunt true --filter aws/accounts/ --autoplan --output atlantis.yaml
+    - run: terragrunt-atlantis-config generate --automerge --ignore-dependency-blocks --ignore-parent-terragrunt true --filter infra-live --autoplan --output atlantis.yaml
     - run: cat atlantis.yaml
   workflow: terragrunt-infracost
 workflows:
