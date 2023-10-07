@@ -1,6 +1,6 @@
 repos:
 - id: "/.*/"
-  workflow: terragrunt-infracost
+  workflow: terragrut-infracost
 workflows:
   terragrunt-infracost:
     plan:
