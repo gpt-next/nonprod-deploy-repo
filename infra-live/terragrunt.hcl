@@ -7,7 +7,7 @@ locals {
   account_type                  = local.account_vars.locals.account_type
   aws_region                    = local.region_vars.locals.aws_region
   aws_region_cd                 = local.region_vars.locals.aws_region_cd
-  terraform_state_s3_bucket     = "gpt-nx-terraform-state-${local.account_type}"
+  terraform_state_s3_bucket     = "gpt-nx-deploy-repo-${local.account_type}"
   terraform_lock_dynamodb_table = "my-lock-table"
 }
 
@@ -16,9 +16,10 @@ generate "provider" {
   path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
-provider "kubernetes" {
-  config_path    = "~/.kube/config"
-  config_context = "rancher-desktop"
+provider "aws" {
+  version = ">= 4.9.0, < 5.0.0"
+  region = "${local.aws_region}"
+  allowed_account_ids = ["${local.aws_account_id}"]
 }
 EOF
 }

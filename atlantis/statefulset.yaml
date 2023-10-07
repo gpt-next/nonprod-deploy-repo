@@ -23,9 +23,11 @@ spec:
       #  fsGroup: 1000
       imagePullSecrets:
         - name: docker-pull-secret
+      
       containers:
       - name: atlantis
         image: ghcr.io/gpt-next/custom-images-atlantis:main #ghcr.io/runatlantis/atlantis:v0.25.0 #quay.io/cfel4321/atlantis
+        imagePullPolicy: Always
         env:
         - name: HOME
           value: /home/atlantis 
@@ -61,12 +63,12 @@ spec:
           valueFrom:
             secretKeyRef:
               name: atlantis-vcs
-              key: AWS_ACCESS_KEY_ID
+              key: ATLANTIS_AWS_ACCESS_KEY
         - name: AWS_SECRET_ACCESS_KEY
           valueFrom:
             secretKeyRef:
               name: atlantis-vcs
-              key: AWS_SECRET_ACCESS_KEY
+              key: ATLANTIS_AWS_SECRET_ACCESS_KEY
         envFrom:
           - configMapRef:
               name: extra-env-vars
@@ -82,9 +84,6 @@ spec:
           containerPort: 4141
         resources:
           requests:
-            memory: 256Mi
-            cpu: 100m
-          limits:
             memory: 256Mi
             cpu: 100m
         livenessProbe:
