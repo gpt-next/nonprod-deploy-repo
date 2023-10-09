@@ -25,7 +25,7 @@ workflows:
         - run: |
             #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
-            terragrunt plan --terragrunt-source-update --terragrunt-non-interactive -input=false $(printf '%s' $COMMENT_ARGS | sed 's/,/ /g' | tr -d '\\') -no-color -out=$PLANFILE
+            terragrunt plan --terragrunt-source-update --terragrunt-non-interactive -input=false $(printf '%s' $COMMENT_ARGS | sed 's/,/ /g' | tr -d '\\') -no-color -out $PLANFILE
         - run: |
             #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
