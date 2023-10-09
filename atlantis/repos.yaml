@@ -30,6 +30,7 @@ workflows:
             #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
             terragrunt show -json $PLANFILE > $SHOWFILE
+            cat $SHOWFILE
         - run: |
             #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
@@ -39,7 +40,7 @@ workflows:
             #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
             mkdir -p /home/atlantis/tmp/$BASE_REPO_OWNER-$BASE_REPO_NAME-$PULL_NUM
-            infracost breakdown --path=./infra-live/nonprod/us-west-2/dev/s3-test-bucket \
+            infracost breakdown --path=$SHOWFILE \
                                 --format=json \
                                 --log-level=info \
                                 --out-file=$INFRACOST_OUTPUT \
