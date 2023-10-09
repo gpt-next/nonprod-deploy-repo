@@ -30,7 +30,6 @@ workflows:
             #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
             terragrunt show -json $PLANFILE > $SHOWFILE
-            cat $SHOWFILE
         - run: |
             #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
