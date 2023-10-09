@@ -49,6 +49,10 @@ workflows:
     apply:
       steps:
         - env:
+            # Reduce Terraform suggestion output
+            name: TF_IN_AUTOMATION
+            value: 'true'
+        - env:
             name: SRC_DIR
             command: 'echo "${DIR}"'
         - run: rm -rf ${TOOLS_DIR} && install-tools.sh
@@ -58,4 +62,4 @@ workflows:
         - run: |
             #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
-            terraform apply -auto-approve
+            terragrunt apply -auto-approve
