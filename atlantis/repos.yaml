@@ -1,8 +1,9 @@
 repos:
-- id: "github.com/gpt-nx/nonprod-deploy-repo"
-  #pre_workflow_hooks:
-  #  - run: terragrunt-atlantis-config generate --automerge --ignore-dependency-blocks --ignore-parent-terragrunt true --filter infra-live --autoplan --output atlantis.yaml
+- id: "/.*/"
   workflow: terragrunt-infracost
+  pre_workflow_hooks:
+    - run: terragrunt-atlantis-config generate --automerge --ignore-dependency-blocks --ignore-parent-terragrunt true --filter infra-live --autoplan --output atlantis.yaml
+
 workflows:
   terragrunt-infracost:
     plan:
@@ -24,11 +25,11 @@ workflows:
         - run: |
             #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
-            terragrunt plan --terragrunt-non-interactive -input=false $(printf '%s' $COMMENT_ARGS | sed 's/,/ /g' | tr -d '\\') -no-color -out $PLANFILE
+            terragrunt plan --terragrunt-source-update --terragrunt-non-interactive -input=false $(printf '%s' $COMMENT_ARGS | sed 's/,/ /g' | tr -d '\\') -no-color -out $PLANFILE
         - run: |
             #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
-            terragrunt show $PLANFILE
+            terragrunt show -json $PLANFILE > $SHOWFILE
         - run: |
             #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
@@ -48,6 +49,10 @@ workflows:
     apply:
       steps:
         - env:
+            # Reduce Terraform suggestion output
+            name: TF_IN_AUTOMATION
+            value: 'true'
+        - env:
             name: SRC_DIR
             command: 'echo "${DIR}"'
         - run: rm -rf ${TOOLS_DIR} && install-tools.sh
@@ -57,4 +62,4 @@ workflows:
         - run: |
             #!/usr/bin/env bash
             . ${TOOLS_DIR}/asdf/asdf.sh
-            terraform apply -auto-approve
+            terragrunt apply -auto-approve
