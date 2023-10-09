@@ -15,9 +15,10 @@ locals {
   aws_region_cd    = local.region_vars.locals.aws_region_cd
   aws_region       = local.region_vars.locals.aws_region
   aws_account_id = local.account_vars.locals.aws_account_id
+  project_id = local.global_vars.locals.project_id
 }
 
 inputs = {
-  bucket_name = "my-bucket"
+  bucket_name = "${local.project_id}-my-bucket"
   environment = local.environment
 }
