@@ -1,6 +1,9 @@
 repos:
 - id: "/.*/"
   workflow: terragrunt-infracost
+  pre_workflow_hooks:
+    - run: terragrunt-atlantis-config generate --automerge --ignore-dependency-blocks --ignore-parent-terragrunt true --filter infra-live --autoplan --output atlantis.yaml
+
 workflows:
   terragrunt-infracost:
     plan:
