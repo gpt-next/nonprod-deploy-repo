@@ -19,6 +19,6 @@ locals {
 }
 
 inputs = {
-  bucket_name = "${local.project_id}-my-bucket"
+  bucket_name = "${local.project_id}-my-bucket-edit"
   environment = local.environment
 }
