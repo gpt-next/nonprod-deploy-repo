@@ -55,7 +55,7 @@ workflows:
         - env:
             name: SRC_DIR
             command: 'echo "${DIR}"'
-        - run: rm -rf ${TOOLS_DIR} && install-tools.sh
+        #- run: rm -rf ${TOOLS_DIR} && install-tools.sh
         - env: 
             name: ASDF_DIR
             command: 'echo "${TOOLS_DIR}/asdf"'
