@@ -6,7 +6,7 @@ kubectl label --overwrite ns olm \
   pod-security.kubernetes.io/audit=restricted
 #Now creae argocd
 kubectl create namespace argocd
-kustomize build ./argocd | argocd-vault-plugin generate | kubectl apply -f -
+kustomize build ./argocd | argocd-vault-plugin generate - | kubectl apply -f -
 kubectl get catalogsources -n olm
 kubectl get pods -n olm -l olm.catalogSource=argocd-catalog
 kubectl get operatorgroups -n argocd
