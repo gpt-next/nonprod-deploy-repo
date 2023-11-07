@@ -61,7 +61,7 @@ spec:
   - name: nonprod-admins-sync
     description: nonprod-admins can sync applications
     policies:
-    - p, proj:environments:nonprod-admins-sync, applications, sync, environmemnts/*, allow
+    - p, proj:environments:nonprod-admins-sync, applications, sync, environments/*, allow
     groups:
     - gpt-next:nonprod-admins
 
