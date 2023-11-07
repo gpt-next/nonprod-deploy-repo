@@ -3,11 +3,15 @@ kind: Application
 metadata:
   name: dev-example-service
   namespace: argocd
+  annotations:
+   #argocd-image-updater.argoproj.io/image-list: 
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: environments
   source:
     repoURL: https://github.com/gpt-next/example-service.git 
-    targetRevision: HEAD
+    targetRevision: main
     path: overlays/dev
   destination:
     name: in-cluster
