@@ -7,6 +7,7 @@ kubectl label --overwrite ns olm \
 #Now creae argocd
 kubectl create namespace argocd
 kustomize build ./argocd | argocd-vault-plugin generate - | kubectl apply -f -
+kustomize build ./argocd-image-updater | argocd-vault-plugin generate - | kubectl apply -f -
 kubectl get catalogsources -n olm
 kubectl get pods -n olm -l olm.catalogSource=argocd-catalog
 kubectl get operatorgroups -n argocd
@@ -21,3 +22,8 @@ helm install ngrok-ingress-controller ngrok/kubernetes-ingress-controller \
   --set credentials.apiKey=$NGROK_API_KEY \
   --set credentials.authtoken=$NGROK_AUTHTOKEN
 kubectl get po -n  ngrok-ingress-controller
+
+kustomize build ./knative-operator | argocd-vault-plugin generate - | kubectl apply -f -
+cd istio-*
+export PATH=$PWD/bin:$PATH
+istioctl install -y 

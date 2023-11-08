@@ -3,3 +3,4 @@
 atlantis/gh-app-key-file.pem
 .terragrunt-cache
 .terraform.lock.hcl
+istio-1.19.3
