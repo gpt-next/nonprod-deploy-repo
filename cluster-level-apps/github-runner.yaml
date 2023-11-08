@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: dev-services
+  name: github-runner
   namespace: argocd
 spec:
   project: cluster-level-apps
   source:
-    repoURL: https://github.com/gpt-next/nonprod-deploy-repo.git 
+    repoURL: https://helm.github-runner.io
     targetRevision: main
-    path: environments/dev
+    path: github-runner
   destination:
     name: in-cluster
-    namespace: argocd
+    namespace: github-runner
   # Sync policy
   syncPolicy:
     automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
