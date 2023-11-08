@@ -24,6 +24,8 @@ spec:
     name: in-cluster
   - namespace: camunda
     name: in-cluster
+  - namespace: github-runner
+    name: in-cluster
 
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:

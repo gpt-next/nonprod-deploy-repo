@@ -6,7 +6,7 @@ metadata:
 spec:
   project: cluster-level-apps
   source:
-    repoURL: https://helm.github-runner.io
+    repoURL: https://github.com/gpt-next/nonprod-deploy-repo.git
     targetRevision: main
     path: github-runner
   destination:
