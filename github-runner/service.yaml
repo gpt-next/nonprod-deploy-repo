@@ -13,6 +13,7 @@ spec:
       containers:
       - name: github-runner
         image: ghcr.io/gpt-next/custom-images-github-runner:main
+        imagePullPolicy: Always
         envFrom:
         - secretRef:
             name: runner-config-secret
