@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-example-service
+  namespace: argocd
+  annotations:
+   #argocd-image-updater.argoproj.io/image-list: 
+   #argocd-image-updater.argoproj.io/write-back-method: git
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: environments
+  source:
+    repoURL: https://github.com/gpt-next/example-service.git 
+    targetRevision: main
+    path: overlays/dev
+  destination:
+    name: in-cluster
+    namespace: dev-example-service
+  # Sync policy
+  #syncPolicy:
+  #  automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+  #    prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+  #    selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+  #  syncOptions:     # Sync options which modifies sync behavior
+  #  - CreateNamespace=true # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
+  syncPolicy:
+    automated: {}

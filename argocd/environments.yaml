@@ -1,25 +1,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: cluster-level-apps
+  name: environments
   namespace: argocd
   # Finalizer that ensures that project is not deleted until it is not referenced by any application
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   # Project description
-  description: "Cluster level applications"
+  description: "Environments for end user apps"
 
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - 'https://github.com/gpt-next/nonprod-deploy-repo'
+  - 'https://github.com/gpt-next/*'
 
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   # Destination clusters can be identified by 'server', 'name', or both.
   destinations:
-  - namespace: argocd
+  - namespace: dev-*
     name: in-cluster
-  - namespace: atlantis
+  - namespace: qa-*
     name: in-cluster
 
   # Deny all cluster-scoped resources from being created, except for Namespace
@@ -59,9 +59,9 @@ spec:
   # A role which provides sync privileges to only the guestbook-dev application, e.g. to provide
   # sync privileges to a CI system
   - name: nonprod-admins-sync
-    description: nonprod-admins can sync cluster level apps
+    description: nonprod-admins can sync applications
     policies:
-    - p, proj:cluster-level-apps:nonprod-admins-sync, applications, sync, cluster-level-apps/*, allow
+    - p, proj:environments:nonprod-admins-sync, applications, sync, environments/*, allow
     groups:
     - gpt-next:nonprod-admins
 
