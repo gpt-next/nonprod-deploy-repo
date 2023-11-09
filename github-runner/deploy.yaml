@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: github-runner
+  labels:
+    istio-injection: false
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/audit-version: latest
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/enforce-version: latest
+    pod-security.kubernetes.io/warn: restricted
+    pod-security.kubernetes.io/warn-version: latest
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
