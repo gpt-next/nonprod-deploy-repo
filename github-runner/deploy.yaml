@@ -14,6 +14,8 @@ spec:
       labels:
         app: github-runner
     spec:
+      imagePullSecrets:
+        - name: docker-pull-secret
       containers:
        - name: github-runner
         image: ghcr.io/gpt-next/custom-images-github-runner:main
