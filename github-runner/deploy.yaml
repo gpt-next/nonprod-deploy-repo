@@ -39,4 +39,10 @@ spec:
          securityContext:
           capabilities:
             add:
-            - 'SYS_ADMIN'
+            - "SYS_ADMIN"
+            - "MKNOD"
+            - "SYS_CHROOT"
+            - "SETFCAP"
+            - "SYS_RESOURCE"
+            - "SETUID"
+            - "SETGID"
