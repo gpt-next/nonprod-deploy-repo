@@ -1,19 +1,24 @@
-apiVersion: serving.knative.dev/v1
-kind: Service
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: github-runner
+  labels:
+    app: github-runner
 spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: github-runner
   template:
     metadata:
       labels:
         app: github-runner
     spec:
-      imagePullSecrets:
-        - name: docker-pull-secret
       containers:
-      - name: github-runner
+       - name: github-runner
         image: ghcr.io/gpt-next/custom-images-github-runner:main
         imagePullPolicy: Always
+        containerPort: 8080
         envFrom:
         - secretRef:
             name: runner-config-secret
