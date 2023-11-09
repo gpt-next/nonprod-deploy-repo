@@ -27,8 +27,6 @@ spec:
       labels:
         app: github-runner
     spec:
-      securityContext:
-        privileged: true
       imagePullSecrets:
         - name: docker-pull-secret
       containers:
@@ -38,3 +36,5 @@ spec:
          envFrom:
          - secretRef:
             name: runner-config-secret
+         securityContext:
+          privileged: true
