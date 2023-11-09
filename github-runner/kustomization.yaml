@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: github-runner
 
 resources:
-- service.yaml
+- deploy.yaml
 - docker-pull-secret.yaml
 - config-secret.yaml
