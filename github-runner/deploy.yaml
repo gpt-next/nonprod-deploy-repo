@@ -38,3 +38,4 @@ spec:
             name: runner-config-secret
          securityContext:
           privileged: true
+          runAsUser: 1000
