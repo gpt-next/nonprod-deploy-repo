@@ -48,3 +48,11 @@ spec:
             - "SYS_RESOURCE"
             - "SETUID"
             - "SETGID"
+        volumeMounts:
+        - mountPath: /var/lib/containers
+          name: vfs
+      name: demo-volume
+          /var/lib/container
+      volumes:
+      - name: vfs
+        emptyDir: {}
