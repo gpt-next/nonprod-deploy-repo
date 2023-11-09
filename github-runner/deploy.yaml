@@ -33,11 +33,6 @@ spec:
        - name: github-runner
          image: ghcr.io/gpt-next/custom-images-github-runner:main
          imagePullPolicy: Always
-         env:
-         - name: _BUILDAH_STARTED_IN_USERNS
-           value: ""
-         - name: BUILDAH_ISOLATION
-           value: chroot
          envFrom:
          - secretRef:
             name: runner-config-secret
