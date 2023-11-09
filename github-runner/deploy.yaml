@@ -36,21 +36,11 @@ spec:
          envFrom:
          - secretRef:
             name: runner-config-secret
-         securityContext:
-          seLinuxOptions:
-            type: spc_t
-          capabilities:
-            add:
-            - "SYS_ADMIN"
-            - "MKNOD"
-            - "SYS_CHROOT"
-            - "SETFCAP"
-            - "SYS_RESOURCE"
-            - "SETUID"
-            - "SETGID"
          volumeMounts:
-         - mountPath: /var/lib/containers
-           name: vfs
+          - name: varlibcontainers
+            mountPath: /var/lib/containers
+         securityContext:
+          privileged: true
       volumes:
-      - name: vfs
+      - name: varlibcontainers
         emptyDir: {}
