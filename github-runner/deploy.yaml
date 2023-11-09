@@ -27,6 +27,8 @@ spec:
       labels:
         app: github-runner
     spec:
+      securityContext:
+        runAsUser: 1000
       imagePullSecrets:
         - name: docker-pull-secret
       containers:
