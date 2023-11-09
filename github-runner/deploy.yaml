@@ -40,4 +40,4 @@ spec:
           capabilities:
             add:
             - 'SYS_ADMIN'
-          privileged: true
+          allowPrivilegeEscalation: true
