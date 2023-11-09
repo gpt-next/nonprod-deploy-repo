@@ -36,8 +36,8 @@ spec:
          envFrom:
          - secretRef:
             name: runner-config-secret
-        #securityContext:
-        #  capabilities:
-        #    add:
-        #    - 'SYS_ADMIN'
-        #  privileged: true
+        securityContext:
+          capabilities:
+            add:
+            - 'SYS_ADMIN'
+          #privileged: true
