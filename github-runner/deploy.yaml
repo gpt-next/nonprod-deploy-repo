@@ -37,8 +37,8 @@ spec:
          - secretRef:
             name: runner-config-secret
          securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
+          seLinuxOptions:
+            type: spc_t
           capabilities:
             add:
             - "SYS_ADMIN"
