@@ -20,7 +20,6 @@ spec:
        - name: github-runner
          image: ghcr.io/gpt-next/custom-images-github-runner:main
          imagePullPolicy: Always
-         containerPort: 8080
          envFrom:
          - secretRef:
             name: runner-config-secret
