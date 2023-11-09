@@ -37,6 +37,8 @@ spec:
          - secretRef:
             name: runner-config-secret
          securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
           capabilities:
             add:
             - "SYS_ADMIN"
