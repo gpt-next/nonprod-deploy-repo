@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-  - base
+  - git@github.com:gpt-next/base-deploy-repo.git/argocd-image-updater/base?ref=0.1.0-argocd-image-updater
