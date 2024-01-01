@@ -9,4 +9,4 @@ resources:
   - avp-configuration-secret.yaml
   - crd-argocd.yaml
   - ingress.yaml
-  #- ../cluster-level-apps
+  - ../cluster-level-apps
