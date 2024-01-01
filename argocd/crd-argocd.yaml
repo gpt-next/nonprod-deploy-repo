@@ -7,6 +7,8 @@ metadata:
   name: argocd
   namespace: argocd
 spec:
+  extraConfig:
+    "accounts.image-updater": apiKey
   repositoryCredentials: |
     - usernameSecret:
         key: username
@@ -42,7 +44,8 @@ spec:
     policy: |
       g, system:cluster-admins, role:admin
       g, cluster-admins, role:admin
-    scopes: '[groups]'
+      g, gpt-next:nonprod-admins, role:admin
+    scopes: "[groups]"
   repo:
     #serviceaccount: vplugin
     mountsatoken: true
@@ -69,7 +72,7 @@ spec:
             && chmod +x kustomize
         command:
           - sh
-          - '-c'
+          - "-c"
         image: alpine:3.8
         env:
           - name: AVP_VERSION
@@ -114,13 +117,11 @@ spec:
           - name: custom-tools
             subPath: kustomize
             mountPath: /usr/local/bin/kustomize
-   
 
-          
   #resourceExclusions: |
   #  - apiGroups:
   #    - kustomize.config.k8s.io
   #    kinds:
   #   - Kustomization
   #   clusters:
-  #   - "*"  
+  #   - "*"
