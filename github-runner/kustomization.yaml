@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: github-runner
 
 resources:
-- deploy.yaml
-- docker-pull-secret.yaml
-- config-secret.yaml
+  - github.com/gpt-next/base-deploy-repo//github-runner/base?ref=0.1.0-github-runner
+  - docker-pull-secret.yaml
+  - config-secret.yaml
