@@ -4,9 +4,7 @@ metadata:
   name: dev-monorepo-deploy
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: |
-      ghcr.io/gpt-next/monorepo/test:latest
-      ghcr.io/gpt-next/monorepo/test2:latest
+    argocd-image-updater.argoproj.io/image-list: ghcr.io/gpt-next/monorepo/test:latest,ghcr.io/gpt-next/monorepo/test2:latest
     argocd-image-updater.argoproj.io/write-back-method: git
   finalizers:
     - resources-finalizer.argocd.argoproj.io
