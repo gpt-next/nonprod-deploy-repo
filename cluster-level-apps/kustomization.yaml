@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   #- atlantis.yaml
   #- camunda.yaml
-  - github-runner.yaml
+  #- github-runner.yaml
   - argocd-image-updater.yaml
