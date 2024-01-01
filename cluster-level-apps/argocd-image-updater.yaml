@@ -6,9 +6,9 @@ metadata:
 spec:
   project: cluster-level-apps
   source:
-    repoURL: https://github.com/gpt-next/nonprod-deploy-repo.git
+    repoURL: https://github.com/gpt-next/base-deploy-repo.git
     targetRevision: main
-    path: argocd-image-updater
+    path: argocd-image-updater/base
   destination:
     name: in-cluster
     namespace: argocd
