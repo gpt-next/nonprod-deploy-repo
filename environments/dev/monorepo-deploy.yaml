@@ -5,8 +5,6 @@ metadata:
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/image-list: test=ghcr.io/gpt-next/monorepo/test, test2=ghcr.io/gpt-next/monorepo/test2
-    argocd-image-updater.argoproj.io/test.update-strategy: newest-build
-    argocd-image-updater.argoproj.io/test2.update-strategy: newest-build
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/github-update-secret
     argocd-image-updater.argoproj.io/write-back-target: kustomization
 
