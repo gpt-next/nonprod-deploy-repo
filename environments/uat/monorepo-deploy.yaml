@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: uat-monorepo-deploy
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: test=ghcr.io/gpt-next/monorepo/test:latest, test2=ghcr.io/gpt-next/monorepo/test2:latest
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/github-update-secret
+    argocd-image-updater.argoproj.io/write-back-target: kustomization
+    argocd-image-updater.argoproj.io/test.update-strategy: digest
+    argocd-image-updater.argoproj.io/test2.update-strategy: digest
+
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: environments
+  source:
+    repoURL: https://github.com/gpt-next/monorepo-deploy.git
+    targetRevision: main
+    path: overlays/uat
+  destination:
+    name: in-cluster
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+      syncOptions: # Sync options which modifies sync behavior
+        - CreateNamespace=true # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
