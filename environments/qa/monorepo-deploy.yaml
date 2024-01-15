@@ -23,4 +23,4 @@ spec:
     namespace: argocd
   syncPolicy:
     automated:
-      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true
