@@ -7,7 +7,8 @@ metadata:
     argocd-image-updater.argoproj.io/image-list: test=ghcr.io/gpt-next/monorepo/test:latest, test2=ghcr.io/gpt-next/monorepo/test2:latest
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/github-update-secret
     argocd-image-updater.argoproj.io/write-back-target: kustomization
-    argocd-image-updater.argoproj.io/update-strategy: digest
+    argocd-image-updater.argoproj.io/update-strategy: latest
+    argocd-image-updater.argoproj.io/allow-tags: regexp:main
 
   finalizers:
     - resources-finalizer.argocd.argoproj.io
