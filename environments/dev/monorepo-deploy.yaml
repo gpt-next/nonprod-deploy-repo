@@ -8,7 +8,7 @@ metadata:
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/github-update-secret
     argocd-image-updater.argoproj.io/write-back-target: kustomization
     argocd-image-updater.argoproj.io/update-strategy: latest
-    argocd-image-updater.argoproj.io/allow-tags: regexp:main
+    argocd-image-updater.argoproj.io/allow-tags: regexp:latest
 
   finalizers:
     - resources-finalizer.argocd.argoproj.io
