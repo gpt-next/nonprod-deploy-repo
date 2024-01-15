@@ -4,7 +4,7 @@ metadata:
   name: qa-monorepo-deploy
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: test=ghcr.io/gpt-next/monorepo/test:v1.0.x, test2=ghcr.io/gpt-next/monorepo/test2:v1.0.x
+    argocd-image-updater.argoproj.io/image-list: test=ghcr.io/gpt-next/monorepo/test:~1.0, test2=ghcr.io/gpt-next/monorepo/test2:~1.0
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/github-update-secret
     argocd-image-updater.argoproj.io/write-back-target: kustomization
 
